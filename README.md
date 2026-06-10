@@ -38,3 +38,18 @@ Requires Xcode 15+, an Apple developer account for device builds.
 
 VP8 (default) and VP9 only. H.264/OpenH264 is deliberately excluded to keep the
 build royalty-free.
+
+## Distribution & licensing (GPLv2)
+
+This application is licensed under **GPLv2** because it links GPLv2 PJSIP.
+
+- **Google Play (Android):** GPLv2 apps are permitted on Google Play, so this
+  app may be distributed there under GPLv2.
+- **Apple App Store (iOS):** GPLv2 is generally regarded as **incompatible with
+  the App Store Terms of Service** (which impose usage/copy restrictions that
+  GPLv2 forbids — see the 2011 removal of VLC). Shipping a GPLv2 build on the
+  public App Store may therefore require a different license for the binary
+  (e.g. a PJSIP commercial license) or legal review.
+
+This is a licensing summary, not legal advice — the distributor should confirm
+with counsel before any public release.
