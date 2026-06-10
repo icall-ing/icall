@@ -1,0 +1,20 @@
+iCall iOS — third-party components and licenses
+================================================
+
+This application links the following third-party libraries:
+
+1. PJSIP / PJPROJECT (https://github.com/pjsip/pjproject)
+   Copyright (C) 2008-2024 Teluu Inc.
+   Dual-licensed under GPLv2 (or later) and a commercial license.
+   This application is distributed under the GPLv2 (see LICENSE), which is the
+   license under which PJSIP is used here. PJSIP source is NOT bundled in this
+   repository; it is fetched and built from the upstream tag by the included
+   build script (build-vp9-h264-ios.sh) — PJSIP 2.17.
+
+2. libvpx (https://github.com/webm/libvpx) — VP8/VP9 video codecs
+   Copyright (C) The WebM Project authors. BSD-3-Clause license.
+
+H.264 / OpenH264 is intentionally NOT included.
+
+Because this application links GPLv2 PJSIP, the application as a whole is
+distributed under the GNU General Public License v2 — see the LICENSE file.

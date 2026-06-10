@@ -1,0 +1,66 @@
+name: iCall
+options:
+  bundleIdPrefix: ing.icall
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    # PJSIP is built arm64-only (device + Apple-Silicon simulator). Pin ARCHS
+    # so the simulator build doesn't try x86_64 (which has no PJSIP slice).
+    ARCHS: arm64
+    ONLY_ACTIVE_ARCH: "NO"
+    # Distribution signing (device archive / TestFlight). Simulator builds pass
+    # CODE_SIGNING_ALLOWED=NO on the command line to skip signing.
+    DEVELOPMENT_TEAM: "YOUR_APPLE_TEAM_ID"
+    CODE_SIGN_STYLE: Automatic
+targets:
+  iCall:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.0"
+    sources:
+      - path: iCall
+        excludes:
+          - "Resources/Info.plist"
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: ing.icall.dialer
+        PRODUCT_NAME: iCall
+        MARKETING_VERSION: "0.1.0"
+        CURRENT_PROJECT_VERSION: "53"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        GENERATE_INFOPLIST_FILE: "NO"
+        INFOPLIST_FILE: iCall/Resources/Info.plist
+        SWIFT_OBJC_BRIDGING_HEADER: iCall/iCall-Bridging-Header.h
+        CODE_SIGN_ENTITLEMENTS: iCall/iCall.entitlements
+        CLANG_CXX_LANGUAGE_STANDARD: "gnu++17"
+        CLANG_CXX_LIBRARY: "libc++"
+        # PJ_AUTOCONF makes PJSIP's config.h pull in the autoconf-generated
+        # os_auto.h / m_auto.h (endianness, OS features) instead of falling
+        # back to manual arch detection (which errors on arm64).
+        GCC_PREPROCESSOR_DEFINITIONS:
+          - "PJ_AUTOCONF=1"
+          - "$(inherited)"
+        HEADER_SEARCH_PATHS:
+          - "$(SRCROOT)/pjsip-build/out/include"
+        TARGETED_DEVICE_FAMILY: "1"
+    dependencies:
+      - framework: Frameworks/PJSIP.xcframework
+        embed: false
+      - sdk: Network.framework
+      - sdk: Security.framework
+      - sdk: AVFoundation.framework
+      - sdk: AudioToolbox.framework
+      - sdk: CoreAudio.framework
+      - sdk: CoreMedia.framework
+      - sdk: CFNetwork.framework
+      # Video (PJSIP iOS capture + render) — added for 2.17 video build.
+      - sdk: CoreVideo.framework
+      - sdk: VideoToolbox.framework
+      - sdk: OpenGLES.framework
+      - sdk: QuartzCore.framework
+      - sdk: CoreGraphics.framework
+      - sdk: Metal.framework
+      - sdk: MetalKit.framework
